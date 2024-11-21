@@ -5,12 +5,16 @@ interface MainSidebarProps {
   isSidebarOpen: boolean;
   handleSidebarClick: () => void;
   smallSidebarRef: React.RefObject<HTMLDivElement>;
+  activeButtons: string[];
+  setActiveButtons: (buttons: string[]) => void;
 }
 
 const MainSidebar: React.FC<MainSidebarProps> = ({
   isSidebarOpen,
   handleSidebarClick,
   smallSidebarRef,
+  activeButtons,
+  setActiveButtons,
 }) => {
   const sidebarRef = useRef<HTMLDivElement>(null);
 
@@ -51,7 +55,10 @@ const MainSidebar: React.FC<MainSidebarProps> = ({
     >
       <div className="flex flex-col gap-[30px] h-full pl-[100px] pr-[20px] pt-[38px]">
         <h2 className="font-[700] text-[16px] text-[#8A4194]">Menu</h2>
-        <Accordion />
+        <Accordion
+          activeButtons={activeButtons}
+          setActiveButtons={setActiveButtons}
+        />
       </div>
     </div>
   );
