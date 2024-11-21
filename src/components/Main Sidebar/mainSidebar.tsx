@@ -47,7 +47,7 @@ const MainSidebar: React.FC<MainSidebarProps> = ({
   return (
     <div
       ref={sidebarRef}
-      className={`absolute left-[0px] top-[-16px] h-[880px] bg-white shadow-lg w-[370px] transition-transform duration-500 ease-in-out z-10 ${
+      className={`absolute left-[0px] top-[-16px] h-[100vh] bg-white shadow-lg w-[370px] transition-transform duration-500 ease-in-out z-10 ${
         isSidebarOpen
           ? "transform translate-x-0"
           : "transform -translate-x-full"

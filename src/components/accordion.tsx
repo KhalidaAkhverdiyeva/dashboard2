@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 interface AccordionProps {
-  activeButtons: string[]; // Accept an array of active button names
+  activeButtons: string[];
   setActiveButtons: (buttons: string[]) => void;
 }
 
