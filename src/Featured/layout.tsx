@@ -4,8 +4,8 @@ import Sidebar from "../components/Sidebar/sidebar";
 const Layout = () => {
   return (
     <div>
-      <Sidebar />
-      <main>
+      <main className="flex">
+        <Sidebar />
         <Outlet />
       </main>
     </div>

@@ -1,10 +1,22 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Accordion = () => {
-  const [openIndex, setOpenIndex] = useState(null);
+  // const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const toggleItem = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
+  // const toggleItem = (index: number) => {
+  //   setOpenIndex(openIndex === index ? null : index);
+  // };
+  const [openIndexes, setOpenIndexes] = useState<number[]>([]);
+
+  const toggleItem = (index: number) => {
+    setOpenIndexes((prevIndexes) => {
+      if (prevIndexes.includes(index)) {
+        return prevIndexes.filter((item) => item !== index);
+      } else {
+        return [...prevIndexes, index];
+      }
+    });
   };
 
   return (
@@ -15,7 +27,7 @@ const Accordion = () => {
       >
         <div
           className={`flex w-full bg-[#8A4194] h-[40px] items-center justify-between transition-all delay-200  ease-in-out px-[25px] rounded-[6px] ${
-            openIndex === 0 ? "bg-[#8A4194]" : "bg-transparent"
+            openIndexes.includes(0) ? "bg-[#8A4194]" : "bg-transparent"
           } cursor-pointer`}
           onClick={() => toggleItem(0)}
         >
@@ -26,7 +38,7 @@ const Accordion = () => {
               viewBox="0 0 20 20"
               fill="none"
               className={`transition-all delay-200 ease-in-out ${
-                openIndex === 0 ? "stroke-white " : "stroke-black "
+                openIndexes.includes(0) ? "stroke-white " : "stroke-black "
               }`}
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -53,7 +65,7 @@ const Accordion = () => {
             </svg>
             <span
               className={`font-[500] transition-all delay-200  ease-in-out ${
-                openIndex === 0 ? "text-white" : "text-black"
+                openIndexes.includes(0) ? "text-white" : "text-black"
               }`}
             >
               Sales
@@ -67,7 +79,7 @@ const Accordion = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute top-[5px] left-[5px] transition-opacity ease-in-out delay-200 ${
-                openIndex === 0 ? "opacity-0" : "opacity-100"
+                openIndexes.includes(0) ? "opacity-0" : "opacity-100"
               }`}
             >
               <path
@@ -83,7 +95,7 @@ const Accordion = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute top-0 left-0 transition-opacity ease-in-out delay-200 ${
-                openIndex === 0 ? "opacity-100" : "opacity-0"
+                openIndexes.includes(0) ? "opacity-100" : "opacity-0"
               }`}
             >
               <rect
@@ -105,11 +117,14 @@ const Accordion = () => {
 
         <div
           className={`accordion-body overflow-hidden transition-all duration-500 ease-in-out ${
-            openIndex === 0 ? "max-h-[200px] " : "max-h-0 "
+            openIndexes.includes(0) ? "max-h-[200px] " : "max-h-0 "
           }`}
         >
           <ul className="ml-[30px] flex flex-col gap-[5px] font-[400] pl-[10px] border-l-[1px] border-l-solid border-l-[#8A4194]">
-            <li className="h-[30px] cursor-pointer">Application data</li>
+            <Link to="/application-data-sales">
+              <li className="h-[30px] cursor-pointer">Application data</li>
+            </Link>
+
             <li className="h-[30px] cursor-pointer">Lead Details</li>
           </ul>
         </div>
@@ -120,7 +135,7 @@ const Accordion = () => {
       >
         <div
           className={`flex w-full bg-[#8A4194] h-[40px] items-center justify-between transition-all delay-200  ease-in-out px-[25px] rounded-[6px] ${
-            openIndex === 1 ? "bg-[#8A4194]" : "bg-transparent"
+            openIndexes.includes(1) ? "bg-[#8A4194]" : "bg-transparent"
           } cursor-pointer`}
           onClick={() => toggleItem(1)}
         >
@@ -132,7 +147,7 @@ const Accordion = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={`transition-all delay-200 ease-in-out ${
-                openIndex === 1 ? "fill-white " : "fill-black "
+                openIndexes.includes(1) ? "fill-white " : "fill-black "
               }`}
             >
               <path d="M5.116 20C4.65533 20 4.271 19.846 3.963 19.538C3.655 19.23 3.50067 18.8453 3.5 18.384V3H4.5V18.385C4.5 18.5383 4.564 18.6793 4.692 18.808C4.82 18.9367 4.961 19.0007 5.115 19H20.5V20H5.116ZM7.385 16.5V9.192H9.385V16.5H7.385ZM11.885 16.5V4.192H13.885V16.5H11.885ZM16.385 16.5V13.192H18.385V16.5H16.385Z" />
@@ -140,7 +155,7 @@ const Accordion = () => {
 
             <span
               className={`font-[500] transition-all delay-200  ease-in-out ${
-                openIndex === 1 ? "text-white" : "text-black"
+                openIndexes.includes(1) ? "text-white" : "text-black"
               }`}
             >
               Finance
@@ -154,7 +169,7 @@ const Accordion = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute top-[5px] left-[5px] transition-opacity ease-in-out delay-200 ${
-                openIndex === 1 ? "opacity-0" : "opacity-100"
+                openIndexes.includes(1) ? "opacity-0" : "opacity-100"
               }`}
             >
               <path
@@ -170,7 +185,7 @@ const Accordion = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute top-0 left-0 transition-opacity ease-in-out delay-200 ${
-                openIndex === 1 ? "opacity-100" : "opacity-0"
+                openIndexes.includes(1) ? "opacity-100" : "opacity-0"
               }`}
             >
               <rect
@@ -192,7 +207,7 @@ const Accordion = () => {
 
         <div
           className={`accordion-body overflow-hidden transition-all duration-500 ease-in-out ${
-            openIndex === 1 ? "max-h-[200px] " : "max-h-0 "
+            openIndexes.includes(1) ? "max-h-[200px] " : "max-h-0 "
           }`}
         >
           <ul className="ml-[30px] flex flex-col gap-[5px] font-[400] pl-[10px] border-l-[1px] border-l-solid border-l-[#8A4194]">
@@ -201,13 +216,13 @@ const Accordion = () => {
           </ul>
         </div>
       </div>
-      {/* Item 3 */}
+
       <div
         className={` flex flex-col gap-[10px]  transition-all duration-500 ease-in-out `}
       >
         <div
           className={`flex w-full bg-[#8A4194] h-[40px] items-center justify-between transition-all delay-200  ease-in-out px-[25px] rounded-[6px] ${
-            openIndex === 2 ? "bg-[#8A4194]" : "bg-transparent"
+            openIndexes.includes(2) ? "bg-[#8A4194]" : "bg-transparent"
           } cursor-pointer`}
           onClick={() => toggleItem(2)}
         >
@@ -219,7 +234,7 @@ const Accordion = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={`transition-all delay-200 ease-in-out ${
-                openIndex === 2 ? "fill-white " : "fill-black "
+                openIndexes.includes(2) ? "fill-white " : "fill-black "
               }`}
             >
               <path
@@ -236,7 +251,7 @@ const Accordion = () => {
 
             <span
               className={`font-[500] transition-all delay-200  ease-in-out ${
-                openIndex === 2 ? "text-white" : "text-black"
+                openIndexes.includes(2) ? "text-white" : "text-black"
               }`}
             >
               Training
@@ -250,7 +265,7 @@ const Accordion = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute top-[5px] left-[5px] transition-opacity ease-in-out delay-200 ${
-                openIndex === 2 ? "opacity-0" : "opacity-100"
+                openIndexes.includes(2) ? "opacity-0" : "opacity-100"
               }`}
             >
               <path
@@ -266,7 +281,7 @@ const Accordion = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute top-0 left-0 transition-opacity ease-in-out delay-200 ${
-                openIndex === 2 ? "opacity-100" : "opacity-0"
+                openIndexes.includes(2) ? "opacity-100" : "opacity-0"
               }`}
             >
               <rect
@@ -288,7 +303,7 @@ const Accordion = () => {
 
         <div
           className={`accordion-body overflow-hidden transition-all duration-500 ease-in-out ${
-            openIndex === 2 ? "max-h-[200px] " : "max-h-0 "
+            openIndexes.includes(2) ? "max-h-[200px] " : "max-h-0 "
           }`}
         >
           <ul className="ml-[30px] flex flex-col gap-[5px] font-[400] pl-[10px] border-l-[1px] border-l-solid border-l-[#8A4194]">
@@ -298,13 +313,12 @@ const Accordion = () => {
           </ul>
         </div>
       </div>
-      {/* items 4 */}
       <div
         className={` flex flex-col gap-[10px]  transition-all duration-500 ease-in-out `}
       >
         <div
           className={`flex w-full bg-[#8A4194] h-[40px] items-center justify-between transition-all delay-200  ease-in-out px-[25px] rounded-[6px] ${
-            openIndex === 3 ? "bg-[#8A4194]" : "bg-transparent"
+            openIndexes.includes(3) ? "bg-[#8A4194]" : "bg-transparent"
           } cursor-pointer`}
           onClick={() => toggleItem(3)}
         >
@@ -315,7 +329,7 @@ const Accordion = () => {
               viewBox="0 0 24 24"
               fill="none"
               className={`transition-all delay-200 ease-in-out ${
-                openIndex === 3 ? "stroke-white " : "stroke-black "
+                openIndexes.includes(3) ? "stroke-white " : "stroke-black "
               }`}
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -328,7 +342,7 @@ const Accordion = () => {
 
             <span
               className={`font-[500] transition-all delay-200  ease-in-out ${
-                openIndex === 3 ? "text-white" : "text-black"
+                openIndexes.includes(3) ? "text-white" : "text-black"
               }`}
             >
               Internship
@@ -342,7 +356,7 @@ const Accordion = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute top-[5px] left-[5px] transition-opacity ease-in-out delay-200 ${
-                openIndex === 3 ? "opacity-0" : "opacity-100"
+                openIndexes.includes(3) ? "opacity-0" : "opacity-100"
               }`}
             >
               <path
@@ -358,7 +372,7 @@ const Accordion = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute top-0 left-0 transition-opacity ease-in-out delay-200 ${
-                openIndex === 3 ? "opacity-100" : "opacity-0"
+                openIndexes.includes(3) ? "opacity-100" : "opacity-0"
               }`}
             >
               <rect
@@ -380,7 +394,7 @@ const Accordion = () => {
 
         <div
           className={`accordion-body overflow-hidden transition-all duration-500 ease-in-out ${
-            openIndex === 3 ? "max-h-[200px] " : "max-h-0 "
+            openIndexes.includes(3) ? "max-h-[200px] " : "max-h-0 "
           }`}
         >
           <ul className="ml-[30px] flex flex-col gap-[5px] font-[400] pl-[10px] border-l-[1px] border-l-solid border-l-[#8A4194]">
@@ -389,13 +403,12 @@ const Accordion = () => {
           </ul>
         </div>
       </div>
-      {/* items 5 */}
       <div
         className={` flex flex-col gap-[10px]  transition-all duration-500 ease-in-out `}
       >
         <div
           className={`flex w-full bg-[#8A4194] h-[40px] items-center justify-between transition-all delay-200  ease-in-out px-[25px] rounded-[6px] ${
-            openIndex === 4 ? "bg-[#8A4194]" : "bg-transparent"
+            openIndexes.includes(4) ? "bg-[#8A4194]" : "bg-transparent"
           } cursor-pointer`}
           onClick={() => toggleItem(4)}
         >
@@ -407,7 +420,7 @@ const Accordion = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={`transition-all delay-200 ease-in-out ${
-                openIndex === 4 ? "fill-white " : "fill-black "
+                openIndexes.includes(4) ? "fill-white " : "fill-black "
               }`}
             >
               <path
@@ -419,7 +432,7 @@ const Accordion = () => {
 
             <span
               className={`font-[500] transition-all delay-200  ease-in-out ${
-                openIndex === 4 ? "text-white" : "text-black"
+                openIndexes.includes(4) ? "text-white" : "text-black"
               }`}
             >
               Career
@@ -433,7 +446,7 @@ const Accordion = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute top-[5px] left-[5px] transition-opacity ease-in-out delay-200 ${
-                openIndex === 4 ? "opacity-0" : "opacity-100"
+                openIndexes.includes(4) ? "opacity-0" : "opacity-100"
               }`}
             >
               <path
@@ -449,7 +462,7 @@ const Accordion = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute top-0 left-0 transition-opacity ease-in-out delay-200 ${
-                openIndex === 4 ? "opacity-100" : "opacity-0"
+                openIndexes.includes(4) ? "opacity-100" : "opacity-0"
               }`}
             >
               <rect
@@ -471,7 +484,7 @@ const Accordion = () => {
 
         <div
           className={`accordion-body overflow-hidden transition-all duration-500 ease-in-out ${
-            openIndex === 4 ? "max-h-[200px] " : "max-h-0 "
+            openIndexes.includes(4) ? "max-h-[200px] " : "max-h-0 "
           }`}
         >
           <ul className="ml-[30px] flex flex-col gap-[5px] font-[400] pl-[10px] border-l-[1px] border-l-solid border-l-[#8A4194]">

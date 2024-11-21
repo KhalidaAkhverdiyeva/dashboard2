@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Layout from "../Featured/layout";
 import Home from "../pages/Home";
+import ApplicationDataSales from "../pages/Sales/applicationDataSales";
+import LongDetailsSales from "../pages/Sales/longDetailsSales";
 
 export const routers = createBrowserRouter([
   {
@@ -13,8 +15,12 @@ export const routers = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "gadgets",
-        element: <Gadget />,
+        path: "application-data-sales",
+        element: <ApplicationDataSales />,
+      },
+      {
+        path: "long-details-sales",
+        element: <LongDetailsSales />,
       },
     ],
   },

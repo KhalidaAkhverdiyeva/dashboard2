@@ -1,21 +1,32 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import MainSidebar from "../Main Sidebar/mainSidebar";
 
 const Sidebar = () => {
   const [activeButton, setActiveButton] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const smallSidebarRef = useRef<HTMLDivElement>(null);
+
   const handleClick = (buttonName: string) => {
     setActiveButton(buttonName === activeButton ? null : buttonName);
   };
-  const handleSidebarClick = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+  const handleSidebarClick = (e: React.MouseEvent) => {
+    if (isSidebarOpen) {
+      e.stopPropagation();
+      return;
+    }
+    setIsSidebarOpen(true);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
   };
 
   return (
     <div className="relative">
       <div
         onClick={handleSidebarClick}
+        ref={smallSidebarRef}
         className={`w-[55px] flex flex-col items-center bg-[#F3F4F6] rounded-[6px] h-[860px] mt-4 ml-4  cursor-pointer relative z-20`}
       >
         <div className="flex justify-center mt-[23px] ">
@@ -186,7 +197,8 @@ const Sidebar = () => {
       </div>
       <MainSidebar
         isSidebarOpen={isSidebarOpen}
-        handleSidebarClick={handleSidebarClick}
+        handleSidebarClick={closeSidebar}
+        smallSidebarRef={smallSidebarRef}
       />
     </div>
   );

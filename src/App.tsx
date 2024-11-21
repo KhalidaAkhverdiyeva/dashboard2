@@ -1,10 +1,13 @@
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
-import Sidebar from "./components/Sidebar/sidebar";
+import { routers } from "./routers";
 
 function App() {
   return (
     <div>
-      <Sidebar />
+      <div className="App">
+        <RouterProvider router={routers} />
+      </div>
     </div>
   );
 }
